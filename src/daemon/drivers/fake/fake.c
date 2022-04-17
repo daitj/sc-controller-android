@@ -38,20 +38,24 @@ void on_load(void* _d) {
 	}
 }
 
+static char* get_fake_name(const InputDeviceData* idev) {
+	return strbuilder_cpy("Fake (test) controller driver");
+}
+
+static char* get_fake_prop(const InputDeviceData* idev, const char* name) {
+	if ((0 == strcmp(name, "vendor_id")) || (0 == strcmp(name, "product_id")))
+		return strbuilder_cpy("fake");
+	return NULL;
+}
+
 static void driver_list_devices(Driver* drv, Daemon* daemon, const controller_available_cb ca) {
-	char* get_name(const InputDeviceData* idev) {
-		return strbuilder_cpy("Fake (test) controller driver");
-	}
-	char* get_prop(const InputDeviceData* idev, const char* name) {
-		if ((0 == strcmp(name, "vendor_id")) || (0 == strcmp(name, "product_id")))
-			return strbuilder_cpy("fake");
-		return NULL;
-	}
+
+
 	InputDeviceData idev = {
 		.subsystem = 0,
 		.path = "(fake)",
-		.get_name = get_name,
-		.get_prop = get_prop,
+		.get_name = get_fake_name,
+		.get_prop = get_fake_prop,
 	};
 	ca("fake", 9, &idev);
 }

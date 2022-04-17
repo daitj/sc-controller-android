@@ -19,7 +19,7 @@ if host_machine.system() == 'windows'
 	CONFIG_BACKEND = 'config_win32'
 	C_FILES = '\\*.c'
 elif get_option('android').enabled()
-	add_global_arguments('-DANDROID', language: 'c')
+	add_global_arguments('-DANDROID', '-DNO_X11', language: 'c')
 	add_global_arguments('-DNO_TRACEBACKS', language: 'c')
 elif host_machine.system() == 'linux'
 	add_global_arguments('-DUSE_LIBUSB', language: 'c')

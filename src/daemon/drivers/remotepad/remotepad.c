@@ -110,20 +110,23 @@ static bool driver_start(Driver* drv, Daemon* d) {
 	return true;
 }
 
+static char* get_remotepad_name(const InputDeviceData* idev) {
+	return strbuilder_cpy("RemotePad");
+}
+
+static char* get_remotepad_prop(const InputDeviceData* idev, const char* name) {
+	if ((0 == strcmp(name, "vendor_id")) || (0 == strcmp(name, "product_id")))
+		return strbuilder_cpy("rmtp");
+	return NULL;
+}
+
 static void driver_list_devices(Driver* drv, Daemon* daemon, const controller_available_cb ca) {
-	char* get_name(const InputDeviceData* idev) {
-		return strbuilder_cpy("RemotePad");
-	}
-	char* get_prop(const InputDeviceData* idev, const char* name) {
-		if ((0 == strcmp(name, "vendor_id")) || (0 == strcmp(name, "product_id")))
-			return strbuilder_cpy("rmtp");
-		return NULL;
-	}
+
 	InputDeviceData idev = {
 		.subsystem = 0,
 		.path = "(remotepad)",
-		.get_name = get_name,
-		.get_prop = get_prop,
+		.get_name = get_remotepad_name,
+		.get_prop = get_remotepad_prop,
 	};
 	ca("remotepad", 9, &idev);
 }

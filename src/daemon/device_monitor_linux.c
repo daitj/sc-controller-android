@@ -12,7 +12,7 @@
 #include "scc/input_device.h"
 #include "daemon.h"
 #include <sys/stat.h>
-#include <libudev.h>
+#include "libudev.h"
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>

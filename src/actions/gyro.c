@@ -171,7 +171,7 @@ static void gyroabs(Action* a, Mapper* m, const struct GyroInput* value) {
 
 static void accel(Action* a, Mapper* m, const struct GyroInput* value) {
 	GyroAction* g = container_of(a, GyroAction, action);
-	GyroValue* xyz = &value->accel_x;
+	const GyroValue* xyz = &value->accel_x;
 	
 	for (int i=0; i<3; i++) {
 		Axis axis = g->axes[i];
